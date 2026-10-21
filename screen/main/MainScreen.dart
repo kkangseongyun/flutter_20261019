@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
+import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
 import 'dto/DestinationDto.dart';
 import 'widgets/DestinationCard.dart';
 
@@ -113,7 +114,15 @@ class MainScreen extends StatelessWidget {
                 crossAxisSpacing: 10,
                 children: _makeDestinationGrid(),
               ),
+            ),
+
+            ElevatedButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyInfoScreen()));
+                },
+                child: Text('Go MyInfo'),
             )
+
           ],
         ),
       )
