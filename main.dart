@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/provider/TodosModel.dart';
 import 'package:flutter_lab/screen/detail/DetailScreen.dart';
 import 'package:flutter_lab/screen/dio/DioTestScreen.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
+import 'package:flutter_lab/screen/provider/ProviderAddScreen.dart';
+import 'package:flutter_lab/screen/provider/ProviderHomeScreen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'screen/main/MainScreen.dart';
 
 void main(){
@@ -25,6 +29,21 @@ GoRouter router = GoRouter(
     GoRoute(path: '/event', builder: (context, state) => EventScreen()),
     GoRoute(path: '/detail', builder: (context, state) => DetailScreen()),
     GoRoute(path: '/dio', builder: (context, state) => DioTestScreen()),
+    //ShellRoute - 라우트 정보를 중첩 등록, 이곳에 등록된 위젯의 라우팅 정보를 유지하기 위한 스택을 새로 만들어서 관리한다.
+    //동일 구조의 테스트를 provider, riverpod, bloc 으로 하다보니.. 다른 화면에 영향을 주지 않게 하기 위해서..
+    //스택 정보가 분리가 되어.. 이곳에 등록된 데이터는 이곳의 라우팅에서만 사용가능..
+    ShellRoute(
+      builder: (context, state, child){
+        return ChangeNotifierProvider(//공통의 조상 역할하는 곳에서 상태 등록..
+          create: (_) => TodosModel(),
+          child: child,//결정된 GoRoute에 등록한 위젯..
+        );
+      },
+      routes: [
+        GoRoute(path: '/provider-home', builder: (context, state) => ProviderHomeScreen()),
+        GoRoute(path: '/provider-add', builder: (context, state) => ProviderAddScreen()),
+      ]
+    )
   ]
 );
 
