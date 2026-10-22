@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
+import 'package:flutter_lab/screen/main/widgets/MainDrawer.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
 import 'dto/DestinationDto.dart';
 import 'widgets/DestinationCard.dart';
@@ -58,6 +59,7 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('MainScreen'),
       ),
+      drawer: MainDrawer(),
       //화면구성, 여러 위젯 나열, 가로/세로 화면 벗어나면 기본 스크롤 지원하지 않느낟.
       //노란색/검정색 패턴이 출력된다.
       //SingleChildScrollView : 자식은 하나..
@@ -116,12 +118,12 @@ class MainScreen extends StatelessWidget {
               ),
             ),
 
-            ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyInfoScreen()));
-                },
-                child: Text('Go MyInfo'),
-            )
+            // ElevatedButton(
+            //     onPressed: (){
+            //       Navigator.push(context, MaterialPageRoute(builder: (context) => MyInfoScreen()));
+            //     },
+            //     child: Text('Go MyInfo'),
+            // )
 
           ],
         ),
