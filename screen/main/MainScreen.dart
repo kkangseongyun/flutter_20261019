@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
 import 'package:flutter_lab/screen/main/widgets/MainDrawer.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
+import 'package:go_router/go_router.dart';
 import 'dto/DestinationDto.dart';
 import 'widgets/DestinationCard.dart';
 
@@ -91,7 +92,8 @@ class MainScreen extends StatelessWidget {
                   ),
                   ElevatedButton.icon(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => EventScreen()));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => EventScreen()));
+                      context.push('/event');
                     },
                     label: Text('특가 여행지 보기'),
                     icon: Icon(Icons.arrow_drop_down, size: 20,),

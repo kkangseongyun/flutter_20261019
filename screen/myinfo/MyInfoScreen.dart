@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MyInfoScreen extends StatefulWidget {
+
+  String? id;
+  String? keyword;
+  Map<String, dynamic>? extra;
+
+  MyInfoScreen({this.id, this.keyword, this.extra});
+
   @override
   State<MyInfoScreen> createState() => _MyInfoScreenState();
 }
@@ -19,6 +26,13 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
   //최종 데이터 저장을 위해서 호출되는 개발자 함수..
   Future<void> _saveData() async {
     print('$email, $phone, $_userImage');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //State 에서 State의 위젯 데이터 참조 방법...
+    print('${widget.id}, ${widget.keyword}, ${widget.extra}');
   }
 
   @override

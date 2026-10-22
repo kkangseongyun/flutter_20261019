@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab/screen/detail/DetailScreen.dart';
+import 'package:go_router/go_router.dart';
 import '../dto/DestinationDto.dart';
 
 class DestinationCard extends StatelessWidget {
@@ -22,7 +23,10 @@ class DestinationCard extends StatelessWidget {
       //InkWell : 유저 이벤트에 의한 잉크 번짐 효과 적용..
       child: InkWell(
         onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen()));
+          context.push('/detail', extra: {
+            'destination': destinationDto,
+          });
         },
         //잉크 번짐효과가.. round rect 밖에까지 진행되지 않게 하기 위해서..
         borderRadius: BorderRadius.circular(10),

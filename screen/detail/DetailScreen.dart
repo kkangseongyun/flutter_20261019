@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/screen/main/dto/DestinationDto.dart';
+import 'package:go_router/go_router.dart';
 import 'widgets/DetailMainWidget.dart';
 import 'widgets/DetailNewsWidget.dart';
 
@@ -28,6 +30,11 @@ class DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final state = GoRouterState.of(context);
+    final extra = state.extra as Map<String, dynamic>;
+    DestinationDto dto = extra['destination'] as DestinationDto;
+
     return Scaffold(
       //화면 상단을 다양하게 꾸미고.. body 에서 스크롤이 발생할 때 접히게 하고 싶다.
       //일반 AppBar는 그 능력이 없다..
@@ -45,7 +52,7 @@ class DetailScreenState extends State<DetailScreen> {
                 pinned: true,
                 backgroundColor: Color(0xFF3899DD),
                 flexibleSpace: FlexibleSpaceBar(
-                  title: Text('스위스', style: TextStyle(color: Colors.white),),
+                  title: Text(dto.destination, style: TextStyle(color: Colors.white),),
                   titlePadding: EdgeInsets.only(left: 56, bottom: 16,),
                   expandedTitleScale: 1.0,//접힐때 작아졌다가 펼처질때 크게 할 수 있다. 배율..
                   background: Image.asset('assets/images/detail_main.jpg', fit: BoxFit.cover,),
