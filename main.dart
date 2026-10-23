@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab/provider/TodosModel.dart';
+import 'package:flutter_lab/riverpod/RiverpodNotifier.dart';
 import 'package:flutter_lab/screen/detail/DetailScreen.dart';
 import 'package:flutter_lab/screen/dio/DioTestScreen.dart';
 import 'package:flutter_lab/screen/event/EventScreen.dart';
 import 'package:flutter_lab/screen/myinfo/MyInfoScreen.dart';
 import 'package:flutter_lab/screen/provider/ProviderAddScreen.dart';
 import 'package:flutter_lab/screen/provider/ProviderHomeScreen.dart';
+import 'package:flutter_lab/screen/riverpod/RiverpodAddScreen.dart';
+import 'package:flutter_lab/screen/riverpod/RiverpodHomeScreen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'screen/main/MainScreen.dart';
 
 void main(){
-  runApp(MyApp());
+  runApp(
+    ProviderScope(child: MyApp(),),//상태가 저장될 저장소 준비..
+  );
 }
 
 //앱의 화면 정보 등록, MaterialApp에 등록..
@@ -43,6 +49,22 @@ GoRouter router = GoRouter(
         GoRoute(path: '/provider-home', builder: (context, state) => ProviderHomeScreen()),
         GoRoute(path: '/provider-add', builder: (context, state) => ProviderAddScreen()),
       ]
+    ),
+    ShellRoute(
+        builder: (context, state, child){
+          return ProviderScope(//특정 계층만을 위한 저장소 선언..
+            overrides: [
+              //이 저장소에서 유지해야 하는 데이터 선언.. 이곳에 없는 데이터는 자동으로 상위 저장소에서 찾게 된다.
+              //앱 전역에서 유지되어야 하는 데이터는 상위 저장소에, 이 계층에서 유지되어야 하는 데이터만 선언..
+              todosProvider.overrideWith(TodosNotifier.new)
+            ],
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(path: '/riverpod-home', builder: (context, state) => RiverpodHomeScreen()),
+          GoRoute(path: '/riverpod-add', builder: (context, state) => RiverpodAddScreen()),
+        ]
     )
   ]
 );
