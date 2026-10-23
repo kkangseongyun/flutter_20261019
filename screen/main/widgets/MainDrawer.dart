@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab/riverpod/MyInfoNotifier.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../myinfo/MyInfoScreen.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final myInfo = ref.watch(myInfoProvider);
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
@@ -21,11 +26,15 @@ class MainDrawer extends StatelessWidget {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.person, size: 40, color: Colors.blue),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    child: Image.asset(myInfo.userImage, fit: BoxFit.cover,),
+                  ),
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'kim@example.com',
+                  myInfo.email,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15,
